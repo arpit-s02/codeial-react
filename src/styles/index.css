@@ -1,3 +1,7 @@
+body {
+  margin: 0px;
+}
+
 /* LOADER */
 .app-spinner {
   display: inline-block;

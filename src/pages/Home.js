@@ -1,5 +1,6 @@
 import styles from '../styles/home.module.css';
 import PropTypes from 'prop-types';
+import Comment from '../components/Comment';
 
 export const Home = ({ posts }) => {
   return (
@@ -40,7 +41,10 @@ export const Home = ({ posts }) => {
                   alt="Like Button"
                 />
               </button>
-              <span className={styles.numComments}> 2 </span>
+              <span className={styles.numComments}>
+                {' '}
+                {post.comments.length}{' '}
+              </span>
             </div>
           </div>
           <div className={styles.commentsContainer}>
@@ -54,18 +58,7 @@ export const Home = ({ posts }) => {
 
             {/* rendering comments one by one in each post */}
             {post.comments.map((comment) => (
-              <div
-                className={styles.prevComments}
-                key={`comment-${comment._id}`}
-              >
-                <div className={styles.commentUserInfo}>
-                  <span className={styles.userName}> {comment.user.name} </span>
-                  <span className={styles.commentTime}> a minute ago </span>
-                </div>
-                <div className={styles.comment}>
-                  <span>{comment.content}</span>
-                </div>
-              </div>
+              <Comment comment={comment} key={`comment-${comment._id}`} />
             ))}
           </div>
         </div>

@@ -7,7 +7,8 @@
   display: flex;
   flex-direction: column;
   margin: 10px;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 10px;
   padding: 10px;
 }
 
@@ -45,6 +46,7 @@
 
 .postLikesComments {
   display: flex;
+  align-items: center;
 }
 
 .button {
@@ -52,8 +54,8 @@
   border: none;
   padding: 0px;
   margin-right: 3px;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
   cursor: pointer;
 }
 
@@ -65,6 +67,7 @@
 .numLikes,
 .numComments {
   margin-right: 10px;
+  color: grey;
 }
 
 .commentsContainer {
@@ -79,31 +82,4 @@
   resize: none;
   overflow: hidden;
   /* border-radius: 5px; */
-}
-
-.prevComments {
-  border: 1px solid black;
-  margin-top: 10px;
-  width: 300px;
-  padding: 5px;
-  border-radius: 10px;
-}
-
-.commentUserInfo {
-  display: flex;
-  align-items: center;
-}
-
-.userName {
-  margin-right: 5px;
-  font-weight: bold;
-}
-
-.commentTime {
-  font-size: 12px;
-  color: grey;
-}
-
-.comment {
-  font-family: cursive;
 }
