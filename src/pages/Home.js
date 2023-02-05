@@ -1,11 +1,12 @@
 import styles from '../styles/home.module.css';
+import PropTypes from 'prop-types';
 
 export const Home = ({ posts }) => {
   return (
     <div className={styles.homeContainer}>
       {/* rendering posts one by one */}
-      {posts.map((post, index) => (
-        <div className={styles.postContainer} key={index}>
+      {posts.map((post) => (
+        <div className={styles.postContainer} key={`post-${post._id}`}>
           <div className={styles.postUserInfoContainer}>
             <div className={styles.postUserDP}>
               <img
@@ -52,8 +53,11 @@ export const Home = ({ posts }) => {
             </div>
 
             {/* rendering comments one by one in each post */}
-            {post.comments.map((comment, index) => (
-              <div className={styles.prevComments} key={index}>
+            {post.comments.map((comment) => (
+              <div
+                className={styles.prevComments}
+                key={`comment-${comment._id}`}
+              >
                 <div className={styles.commentUserInfo}>
                   <span className={styles.userName}> {comment.user.name} </span>
                   <span className={styles.commentTime}> a minute ago </span>
@@ -68,4 +72,9 @@ export const Home = ({ posts }) => {
       ))}
     </div>
   );
+};
+
+// validating props
+Home.propTypes = {
+  posts: PropTypes.array.isRequired,
 };

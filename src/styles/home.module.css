@@ -74,11 +74,11 @@
 }
 
 .addComment {
-  border-color: black;
+  border-color: grey;
   padding: 4px;
   resize: none;
   overflow: hidden;
-  border-radius: 5px;
+  /* border-radius: 5px; */
 }
 
 .prevComments {
