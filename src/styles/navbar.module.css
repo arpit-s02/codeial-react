@@ -6,6 +6,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0px 5px;
+  box-sizing: border-box;
 }
 
 .navRight {
@@ -40,7 +41,6 @@ ul {
   display: flex;
   margin: 0px;
   padding: 0px;
-  margin-right: 10px;
 }
 
 ul li {
