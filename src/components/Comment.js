@@ -1,4 +1,5 @@
 import styles from '../styles/comment.module.css';
+import PropTypes from 'prop-types';
 
 const Comment = ({ comment }) => {
   return (
@@ -12,6 +13,10 @@ const Comment = ({ comment }) => {
       </div>
     </div>
   );
+};
+
+Comment.propTypes = {
+  comment: PropTypes.object.isRequired,
 };
 
 export default Comment;
