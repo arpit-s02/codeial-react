@@ -52,3 +52,14 @@
   cursor: pointer;
   border-radius: 5px;
 }
+
+.submitButtonLoggingIn {
+  height: 40px;
+  width: 300px;
+  border: none;
+  background-color: grey;
+  color: white;
+  margin-bottom: 25px;
+  cursor: auto;
+  border-radius: 5px;
+}
