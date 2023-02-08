@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import styles from '../styles/logInSignUp.module.css';
-import { login } from '../api';
+import { useAuth } from '../hooks';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggingIn, setLoggingIn] = useState(false);
+
+  // to use auth context
+  const auth = useAuth();
+
+  console.log(auth);
 
   const handleSubmit = async (e) => {
     // to prevent the page from reloading when submitting the form
@@ -13,7 +18,7 @@ export const Login = () => {
     setLoggingIn(true);
 
     // check whether user exists or not in the API
-    const response = await login(email, password);
+    const response = await auth.login(email, password);
     console.log(response);
 
     setLoggingIn(false);

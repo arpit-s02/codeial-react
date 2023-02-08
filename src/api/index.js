@@ -1,12 +1,11 @@
-import { API_URLS, LOCALSTORAGE_TOKEN_KEY } from '../utils';
+import { API_URLS, getFormBody, LOCALSTORAGE_TOKEN_KEY } from '../utils';
 
 // in the second argument, body is destructured and rest of the keys are called customConfig
 const customFetch = async (url, { body, ...customConfig }) => {
   const token = window.localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
 
   const headers = {
-    'content-type': 'application/json',
-    Accept: 'application/json',
+    'content-type': 'application/x-www-form-urlencoded',
   };
 
   // if token exists, we are adding authorization key to headers as some APIs require authorization
@@ -26,7 +25,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
   // stringifying the body as we cannnot send objects directly, and adding it inside the config
   // body can contain keys such as email and password in log-in
   if (body) {
-    config.body = JSON.stringify(body);
+    config.body = getFormBody(body);
   }
 
   try {

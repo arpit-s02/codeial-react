@@ -1,8 +1,25 @@
 import styles from '../styles/home.module.css';
-import PropTypes from 'prop-types';
 import Comment from '../components/Comment';
+import { getPosts } from '../api';
+import { useState, useEffect } from 'react';
 
-export const Home = ({ posts }) => {
+export const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // fetching posts from the API
+    const fetchPosts = async () => {
+      const postsResponse = await getPosts();
+
+      if (postsResponse.success) {
+        // if posts are successfully fetched we set the state of posts as the posts received
+        setPosts(postsResponse.data.posts);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div className={styles.homeContainer}>
       {/* rendering posts one by one */}
@@ -65,9 +82,4 @@ export const Home = ({ posts }) => {
       ))}
     </div>
   );
-};
-
-// validating props
-Home.propTypes = {
-  posts: PropTypes.array.isRequired,
 };

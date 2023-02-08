@@ -1,33 +1,14 @@
-import { useEffect, useState } from 'react';
-import { getPosts } from '../api';
 import { Home } from '../pages';
 import { Login } from '../pages';
 import Loader from './Loader';
 import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const auth = useAuth();
 
-  useEffect(() => {
-    // fetching posts from the API
-    const fetchPosts = async () => {
-      const postsResponse = await getPosts();
-
-      if (postsResponse.success) {
-        // if posts are successfully fetched we set the state of posts as the posts received
-        setPosts(postsResponse.data.posts);
-
-        // when posts are received we set loading as false
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  if (loading) {
+  if (auth.loading) {
     // while posts are being fetched we display the loader instead of home component
     return <Loader />;
   }
@@ -37,7 +18,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home posts={posts} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
