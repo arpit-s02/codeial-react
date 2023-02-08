@@ -1,0 +1,98 @@
+.settingsBackground {
+  background-color: #f7f9fc;
+  height: 93vh;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.settingsContainer {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 380px;
+  margin: auto;
+  border-radius: 10px;
+  font-family: sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.userDP {
+  height: 75px;
+  width: 75px;
+  /* border: 1px solid black; */
+  margin-bottom: 25px;
+}
+
+.userDP img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+.fieldLabel {
+  color: grey;
+  margin-bottom: 5px;
+}
+
+.field input {
+  height: 35px;
+  width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 15px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.field input:focus {
+  outline: none;
+}
+
+.editButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.editButton {
+  height: 40px;
+  width: 100px;
+  border: none;
+  background-color: rgba(216, 22, 57, 1);
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.updateButton {
+  height: 40px;
+  width: 100px;
+  border: none;
+  background-color: rgba(216, 22, 57, 1);
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.updateButtonUpdating {
+  height: 40px;
+  width: 100px;
+  border: none;
+  background-color: grey;
+  color: white;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}

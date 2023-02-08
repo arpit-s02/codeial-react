@@ -18,7 +18,7 @@ const Navbar = () => {
         {auth.user && (
           <div className={styles.userInfo}>
             <div className={styles.userDP}>
-              <Link to="/">
+              <Link to="/user/settings">
                 <img
                   alt=""
                   src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
@@ -26,13 +26,24 @@ const Navbar = () => {
               </Link>
             </div>
 
-            <a href="/"> {auth.user.name} </a>
+            <Link to="/user/settings"> {auth.user.name} </Link>
           </div>
         )}
         <ul>
           {auth.user ? (
             <li>
-              <button onClick={auth.logout}> Log Out </button>
+              <button
+                onClick={auth.logout}
+                style={{
+                  border: 'none',
+                  backgroundColor: 'transparent',
+                  color: 'white',
+                  cursor: 'pointer',
+                }}
+              >
+                {' '}
+                Logout{' '}
+              </button>
             </li>
           ) : (
             <>

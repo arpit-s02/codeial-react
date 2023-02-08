@@ -1,10 +1,11 @@
 import { Home } from '../pages';
 import { Login } from '../pages';
+import { Settings } from '../pages';
+import { SignUp } from '../pages';
 import Loader from './Loader';
 import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from '../hooks';
-import { SignUp } from '../pages/SignUp';
 
 function App() {
   const auth = useAuth();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/user/settings" element={<Settings />} />
         </Routes>
       </Router>
     </div>
