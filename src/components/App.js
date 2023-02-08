@@ -4,12 +4,12 @@ import Loader from './Loader';
 import Navbar from './Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from '../hooks';
+import { SignUp } from '../pages/SignUp';
 
 function App() {
   const auth = useAuth();
 
   if (auth.loading) {
-    // while posts are being fetched we display the loader instead of home component
     return <Loader />;
   }
 
@@ -20,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </Router>
     </div>

@@ -2,9 +2,11 @@ import styles from '../styles/home.module.css';
 import Comment from '../components/Comment';
 import { getPosts } from '../api';
 import { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
 
 export const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // fetching posts from the API
@@ -15,10 +17,16 @@ export const Home = () => {
         // if posts are successfully fetched we set the state of posts as the posts received
         setPosts(postsResponse.data.posts);
       }
+
+      setLoading(false);
     };
 
     fetchPosts();
   }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.homeContainer}>

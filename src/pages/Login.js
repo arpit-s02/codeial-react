@@ -10,7 +10,7 @@ export const Login = () => {
   // to use auth context
   const auth = useAuth();
 
-  console.log(auth);
+  // console.log(auth);
 
   const handleSubmit = async (e) => {
     // to prevent the page from reloading when submitting the form
@@ -38,6 +38,7 @@ export const Login = () => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
               />
             </div>
 
@@ -49,6 +50,7 @@ export const Login = () => {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
               />
             </div>
 

@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../providers/AuthProvider';
-import { login as userLogin } from '../api';
+import { login as userLogin, signUp as userSignUp } from '../api';
+
 import {
   setItemInLocalStorage,
   LOCALSTORAGE_TOKEN_KEY,
@@ -32,6 +33,21 @@ export const useProviderAuth = () => {
 
     setLoading(false);
   }, []);
+
+  const signUp = async (name, email, password, confirmPassword) => {
+    const response = await userSignUp(name, email, password, confirmPassword);
+
+    if (response.success) {
+      return {
+        success: true,
+      };
+    } else {
+      return {
+        success: false,
+        message: response.message,
+      };
+    }
+  };
 
   const login = async (email, password) => {
     // getting response from the API
@@ -74,5 +90,6 @@ export const useProviderAuth = () => {
     login,
     logout,
     loading,
+    signUp,
   };
 };
