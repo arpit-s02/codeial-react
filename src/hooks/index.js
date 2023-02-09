@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import { AuthContext } from '../providers/AuthProvider';
-import { editProfile, login as userLogin, signUp as userSignUp } from '../api';
+import {
+  editProfile,
+  fetchFriends,
+  login as userLogin,
+  signUp as userSignUp,
+} from '../api';
 
 import {
   setItemInLocalStorage,
@@ -22,16 +27,23 @@ export const useProviderAuth = () => {
 
   useEffect(() => {
     // when the page loads we set the user if it exists
+    const getUser = async () => {
+      const userToken = getItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
 
-    const userToken = getItemFromLocalStorage(LOCALSTORAGE_TOKEN_KEY);
+      if (userToken) {
+        const user = jwtDecode(userToken);
+        const response = await fetchFriends();
 
-    if (userToken) {
-      const user = jwtDecode(userToken);
+        setUser({
+          ...user,
+          friendships: response.data.friends,
+        });
+      }
 
-      setUser(user);
-    }
+      setLoading(false);
+    };
 
-    setLoading(false);
+    getUser();
   }, []);
 
   const signUp = async (name, email, password, confirmPassword) => {
@@ -49,14 +61,25 @@ export const useProviderAuth = () => {
     }
   };
 
+  const setFriends = async () => {
+    const response = await fetchFriends();
+
+    if (response.success) {
+      setUser({
+        ...user,
+        friendships: response.data.friends,
+      });
+    } else {
+      console.error(response.message);
+    }
+  };
+
   const login = async (email, password) => {
     // getting response from the API
     const response = await userLogin(email, password);
 
     if (response.success) {
       // if email and password validated
-
-      // setting the user as received from the API
       setUser(response.data.user);
 
       // storing the user in local storage
@@ -100,6 +123,28 @@ export const useProviderAuth = () => {
     }
   };
 
+  const updateUserFriends = (addFriend, friend) => {
+    // if addFriend is true we add the friend in our local state
+    if (addFriend) {
+      setUser({
+        ...user,
+        friendships: [...user.friendships, friend],
+      });
+      return;
+    }
+    // else we remove the friend from our local state
+    else {
+      const updatedFriends = user.friendships.filter((f) => {
+        return f.to_user._id !== friend;
+      });
+
+      setUser({
+        ...user,
+        friendships: updatedFriends,
+      });
+    }
+  };
+
   const logout = () => {
     setUser(null);
 
@@ -111,9 +156,11 @@ export const useProviderAuth = () => {
   return {
     user,
     login,
+    setFriends,
     logout,
     loading,
     signUp,
     updateUser,
+    updateUserFriends,
   };
 };

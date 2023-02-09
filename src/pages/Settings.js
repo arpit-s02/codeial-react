@@ -2,6 +2,7 @@ import styles from '../styles/settings.module.css';
 import { useAuth } from '../hooks';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
+import { Navigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Settings = () => {
@@ -44,6 +45,10 @@ export const Settings = () => {
 
     setUpdating(false);
   };
+
+  if (!auth.user) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className={styles.settingsBackground}>

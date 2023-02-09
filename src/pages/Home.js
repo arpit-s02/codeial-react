@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -14,9 +15,14 @@ export const Home = () => {
   const auth = useAuth();
 
   useEffect(() => {
+    // adding friendships array to the user object
+    // eslint-disable-next-line
+    auth.setFriends();
+
     // fetching posts from the API
     const fetchPosts = async () => {
       const postsResponse = await getPosts();
+      // console.log(postsResponse);
 
       if (postsResponse.success) {
         // if posts are successfully fetched we set the state of posts as the posts received
@@ -44,16 +50,21 @@ export const Home = () => {
         <div className={styles.postContainer} key={`post-${post._id}`}>
           <div className={styles.postUserInfoContainer}>
             <div className={styles.postUserDP}>
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
-                alt="User dp"
-              />
+              <Link to={`/user/${post.user._id}`}>
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/4333/4333609.png"
+                  alt="User dp"
+                />
+              </Link>
             </div>
             <div className={styles.postUserInfo}>
-              <span>
+              <Link
+                to={`/user/${post.user._id}`}
+                className={styles.postUserName}
+              >
                 {' '}
                 <b> {post.user.name} </b>{' '}
-              </span>
+              </Link>
               <span className={styles.postTime}> a minute ago </span>
             </div>
           </div>

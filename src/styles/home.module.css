@@ -33,6 +33,10 @@
   justify-content: center;
 }
 
+.postUserName {
+  color: black;
+}
+
 .postTime {
   font-size: 12px;
   color: grey;
