@@ -3,10 +3,15 @@ import Comment from '../components/Comment';
 import { getPosts } from '../api';
 import { useState, useEffect } from 'react';
 import Loader from '../components/Loader';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks';
 
 export const Home = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const auth = useAuth();
 
   useEffect(() => {
     // fetching posts from the API
@@ -23,6 +28,10 @@ export const Home = () => {
 
     fetchPosts();
   }, []);
+
+  if (!auth.user) {
+    return <Navigate to="/login" />;
+  }
 
   if (loading) {
     return <Loader />;
@@ -88,6 +97,11 @@ export const Home = () => {
           </div>
         </div>
       ))}
+      <ToastContainer
+        position="top-left"
+        autoClose={1000}
+        hideProgressBar={true}
+      />
     </div>
   );
 };

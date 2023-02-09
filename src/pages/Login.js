@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../styles/logInSignUp.module.css';
 import { useAuth } from '../hooks';
 import { ToastContainer, toast } from 'react-toastify';
+import { Navigate } from 'react-router-dom';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -21,13 +22,19 @@ export const Login = () => {
     // check whether user exists or not in the API
     const response = await auth.login(email, password);
     if (response.success) {
-      toast.success('Logged In!');
+      setTimeout(() => {
+        toast.success('Logged In!');
+      }, 1000);
     } else {
       toast.error(response.message);
     }
 
     setLoggingIn(false);
   };
+
+  if (auth.user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className={styles.logInSignUpBackground}>

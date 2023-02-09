@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/logInSignUp.module.css';
 import { useAuth } from '../hooks';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 export const SignUp = () => {
@@ -37,6 +37,10 @@ export const SignUp = () => {
       toast.error(response.message);
     }
   };
+
+  if (auth.user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className={styles.logInSignUpBackground}>
