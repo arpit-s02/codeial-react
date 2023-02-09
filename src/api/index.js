@@ -40,6 +40,7 @@ const customFetch = async (url, { body, ...customConfig }) => {
       return {
         data: data.data,
         success: true,
+        message: data.message,
       };
     }
 
@@ -67,12 +68,24 @@ export const login = (email, password) => {
   });
 };
 
-export const signUp = (name, email, password, confirm_password) => {
+export const signUp = async (name, email, password, confirm_password) => {
   return customFetch(API_URLS.signup(), {
     method: 'POST',
     body: {
       name,
       email,
+      password,
+      confirm_password,
+    },
+  });
+};
+
+export const editProfile = async (id, name, password, confirm_password) => {
+  return customFetch(API_URLS.editUser(), {
+    method: 'POST',
+    body: {
+      id,
+      name,
       password,
       confirm_password,
     },

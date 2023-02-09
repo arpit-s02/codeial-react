@@ -1,6 +1,8 @@
 import styles from '../styles/settings.module.css';
 import { useAuth } from '../hooks';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Settings = () => {
   const auth = useAuth();
@@ -10,9 +12,37 @@ export const Settings = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [updating, setUpdating] = useState(false);
 
-  const updateProfile = (e) => {
+  const clearForm = () => {
+    setNewPassword('');
+    setConfirmPassword('');
+  };
+
+  const updateProfile = async (e) => {
     e.preventDefault();
     setUpdating(true);
+
+    if (newPassword !== confirmPassword) {
+      setUpdating(false);
+      toast.error('Password and Confirm Password do not match!');
+      return;
+    }
+
+    const response = await auth.updateUser(
+      auth.user?._id,
+      name,
+      newPassword,
+      confirmPassword
+    );
+
+    if (response.success) {
+      setEditMode(false);
+      clearForm();
+      toast.success('Profile Updated!');
+    } else {
+      toast.error(response.message);
+    }
+
+    setUpdating(false);
   };
 
   return (
@@ -68,7 +98,6 @@ export const Settings = () => {
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  required
                   autoComplete="new-password"
                 />
               </div>
@@ -79,7 +108,6 @@ export const Settings = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
                   autoComplete="new-password"
                 />
               </div>
@@ -106,6 +134,11 @@ export const Settings = () => {
           </>
         )}
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={true}
+      />
     </div>
   );
 };

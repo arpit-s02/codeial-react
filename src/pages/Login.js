@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from '../styles/logInSignUp.module.css';
 import { useAuth } from '../hooks';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,7 +20,11 @@ export const Login = () => {
 
     // check whether user exists or not in the API
     const response = await auth.login(email, password);
-    console.log(response);
+    if (response.success) {
+      toast.success('Logged In!');
+    } else {
+      toast.error(response.message);
+    }
 
     setLoggingIn(false);
   };
@@ -66,6 +71,11 @@ export const Login = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={true}
+      />
     </div>
   );
 };

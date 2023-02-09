@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from '../styles/logInSignUp.module.css';
 import { useAuth } from '../hooks';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -16,8 +17,12 @@ export const SignUp = () => {
     // to prevent the page from reloading when submitting the form
     e.preventDefault();
 
+    if (!name || !email || !password || !confirmPassword) {
+      return toast.error('Please fill in all the details!');
+    }
+
     if (password !== confirmPassword) {
-      return window.alert('Password and Confirm Password do not match!');
+      return toast.error('Password and Confirm Password do not match!');
     }
 
     setSigningUp(true);
@@ -26,10 +31,10 @@ export const SignUp = () => {
     setSigningUp(false);
 
     if (response.success) {
-      console.log(response);
       navigate('/login');
+      setTimeout(() => toast.success('Account Created!'), 500);
     } else {
-      return window.alert(response.message);
+      toast.error(response.message);
     }
   };
 
@@ -44,7 +49,6 @@ export const SignUp = () => {
                 type="text"
                 placeholder="Name"
                 name="name"
-                required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -55,7 +59,6 @@ export const SignUp = () => {
                 type="email"
                 placeholder="Email"
                 name="email"
-                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="username"
@@ -67,7 +70,6 @@ export const SignUp = () => {
                 type="password"
                 placeholder="Password"
                 name="password"
-                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
@@ -79,7 +81,6 @@ export const SignUp = () => {
                 type="password"
                 placeholder="Confirm Password"
                 name="confirmPassword"
-                required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 autoComplete="new-password"
@@ -98,6 +99,11 @@ export const SignUp = () => {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={true}
+      />
     </div>
   );
 };
